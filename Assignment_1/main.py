@@ -6,14 +6,12 @@ import matplotlib as mpl
 
 
 def main():
-    priceTrendGraph()
+    #priceTrendGraph()
+    salesPlot()
 
 
 def priceTrendGraph():
-    brentDailyData = pd.read_csv('Assignment_1/data/brent-daily.csv')
-    wtiDailyData = pd.read_csv('Assignment_1/data/wti-daily.csv')
-
-
+    
 
     """Data : Use the ‘wti-daily.csv’ and ‘brent-daily.csv’ files into a data frame
     in which the Date column is treated as a datetime value and is set to be
@@ -23,6 +21,11 @@ def priceTrendGraph():
     Q2. Plot the average price trend of oil from 1992 -2002
     Q3. Compare the both the average prices of a barrel of oil from 1992-
     2002, indicate significant differences though markers. """
+
+    brentDailyData = pd.read_csv('Assignment_1/Data/brent-daily.csv')
+    wtiDailyData = pd.read_csv('Assignment_1/Data/wti-daily.csv')
+
+
 
     brentDailyData['Date'] = pd.to_datetime(brentDailyData['Date'])
     wtiDailyData['Date'] = pd.to_datetime(wtiDailyData['Date'])
@@ -57,6 +60,22 @@ def priceTrendGraph():
     plt.legend()
     plt.grid(True)
     plt.show()
+
+def salesPlot():
+
+
+    """ Data: Use the ‘ sales.xlsx ’ to answer the questions Q4 and Q5.
+    Q4. Plot the city wise distribution of sales, which city has contributed
+    maximum in the sales.
+    Q5. Does payment methods have impact on sales, which payment
+    method is contributing to the sales. """
+
+    salesData = pd.read_excel('Assignment_1/Data/sales.xlsx')
+
+    print(salesData.head())
+    print (salesData.columns)
+
+
 
 
 if __name__ == "__main__":
