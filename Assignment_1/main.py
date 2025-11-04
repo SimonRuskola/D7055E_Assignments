@@ -3,11 +3,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
 
 def main():
     #priceTrendGraph()
-    salesPlot()
+    #salesPlot()
+    #cmapImagePlot()
+    filterImagePlot()
 
 
 def priceTrendGraph():
@@ -98,6 +101,71 @@ def salesPlot():
     plt.title('Sales by Payment Method')
     plt.ylabel('Gross Income')
 
+    plt.tight_layout()
+    plt.show()
+
+
+def cmapImagePlot():
+    """ Data: Use ‘ 2.jpg ’ file to answer the questions Q6 and Q7.
+    Q6. Read the image ‘2.jpg’ into a NumPy array, apply six different types
+    of ‘cmaps’, and put these images six subplots."""
+
+    img = Image.open('Assignment_1/Data/2.jpg')
+
+    # Convert image to grayscale 
+    img_gray = ImageOps.grayscale(img)
+
+    # Create a NumPy array from the image
+    img_array = np.array(img_gray)
+
+    cmaps = ['gray', 'hot', 'viridis', 'plasma', 'cividis', 'magma']
+
+    plt.figure(figsize=(16, 9))
+
+    for i, cmap in enumerate(cmaps):
+        plt.subplot(2, 3, i + 1)
+        plt.imshow(img_array, cmap=cmap)
+        plt.title(f'Cmap: {cmap}')
+        plt.axis('off')
+
+    plt.tight_layout()
+    plt.show()
+
+
+def filterImagePlot():
+
+    """ Q7. Apply six basic filters on image ‘2.jpg’. Put these six images into
+    two subplots of the following format as:
+    - total number of the rows are 3
+    - 3 subplots in the 1st row, one sublot in the 2nd row and two subplots in
+    the 3rd row.  """
+
+    img = Image.open('Assignment_1/Data/2.jpg')
+
+    filters = [
+        ('BLUR', img.filter(ImageFilter.BLUR)),
+        ('CONTOUR', img.filter(ImageFilter.CONTOUR)),
+        ('DETAIL', img.filter(ImageFilter.DETAIL)),
+        ('EDGE_ENHANCE', img.filter(ImageFilter.EDGE_ENHANCE)),
+        ('EMBOSS', img.filter(ImageFilter.EMBOSS)),
+        ('SHARPEN', img.filter(ImageFilter.SHARPEN))
+    ]
+
+    plt.figure(figsize=(16, 9))
+
+
+    for i, (filter_name, filtered_img) in enumerate(filters):
+        if i < 3:
+            plt.subplot(3, 3, i + 1)  # First row
+        elif i == 3:
+            plt.subplot(3, 3, 5)      # Second row
+        else:
+            plt.subplot(3, 3, i + 3)  # Third row
+
+        plt.imshow(filtered_img)
+        plt.title(filter_name)
+        plt.axis('off')
+    
     plt.tight_layout()
     plt.show()
 
