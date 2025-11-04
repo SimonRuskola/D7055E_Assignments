@@ -72,10 +72,34 @@ def salesPlot():
 
     salesData = pd.read_excel('Assignment_1/Data/sales.xlsx')
 
-    print(salesData.head())
-    print (salesData.columns)
+    salesData.drop(['Invoice ID', 'Branch', 'Customer type', 'Gender',
+       'Product Code', 'Unit price', 'Quantity', 'Tax 5%', 'Total', 'Date',
+        'COGS', 'gross margin percentage', 'Rating'], axis=1, inplace=True)
+    #print(salesData.head())
+    #print (salesData.columns)
 
+    salesData.rename(columns={'City': 'City', 'Payment': 'Payment Method', 'gross income': 'Gross Income'}, inplace=True)
 
+    #print (salesData.isnull().sum())
+
+    city_sales = salesData.groupby('City')['Gross Income'].sum().reset_index()
+    payment_sales = salesData.groupby('Payment Method')['Gross Income'].sum().reset_index()
+
+    plt.figure(figsize=(16, 9))
+    plt.subplot(1, 2, 1)
+    plt.bar(city_sales['City'], city_sales['Gross Income'], color=['blue', 'orange', 'green'])
+    plt.ylim(city_sales['Gross Income'].min() * 0.95, city_sales['Gross Income'].max() * 1.05)
+    plt.title('City-wise Sales Distribution')
+    plt.ylabel('Gross Income')
+
+    plt.subplot(1, 2, 2)
+    plt.bar(payment_sales['Payment Method'], payment_sales['Gross Income'], color=['blue', 'orange', 'green'])
+    plt.ylim(payment_sales['Gross Income'].min() * 0.95, payment_sales['Gross Income'].max() * 1.05)
+    plt.title('Sales by Payment Method')
+    plt.ylabel('Gross Income')
+
+    plt.tight_layout()
+    plt.show()
 
 
 if __name__ == "__main__":
