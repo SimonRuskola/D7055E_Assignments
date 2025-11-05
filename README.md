@@ -1,8 +1,18 @@
-# D7055E_Assignments
+# D7055E Assignments
 
-## How to run
-in root directory run python file
+This repository contains assignments for the D7055E course.
 
+
+### Usage
+
+Dependencies
+```bash
+pip install -r requirements.txt
 ```
-python Assignment_1/main.py
-```
+
+Use whatever to run the notebooks
+
+
+
+
+
