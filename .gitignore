@@ -4,3 +4,4 @@
 /__pycache__/
 *.pyc
 Assignment_2/data/__MACOSX
+Assignment_3/data/real_miniscope_uint8.zarr
